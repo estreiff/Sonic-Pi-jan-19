@@ -1,0 +1,65 @@
+# defines  base notes 1
+define :base_notes do
+  use_synth :dull_bell
+  play 50
+  sleep 1.5
+  play 55
+  sleep 0.75
+  play 50
+  sleep 1.5
+end
+#define rrand for line ~42ish
+define :base_notes2 do
+  sample [:bd_boom , :bd_zome, :bd_ada][rrand(0,2)]
+  sleep 2
+end
+#my uploaded recording
+2. times do
+  sample "C:/Users/emily.streiff/Downloads/Sonic Pi.wav"
+  
+  sleep 2
+end
+#starting sound into base notes sequence
+sample :ambi_dark_woosh, beat_stretch: 5
+sleep 0.5
+2.times do
+  2.times do
+    base_notes
+  end
+  in_thread do
+    3. times do
+      if one_in(2)
+        sample :bd_boom, amp: 2
+      else
+        sample :bd_pure, amp: 2
+      end
+      sleep 0.75
+    end
+    3. times do
+      base_notes, amp= 0.1
+    end
+  end
+end
+#remix-type idea into a new sequence
+sample :vinyl_backspin, attack: 0.5, beat_stretch: 1.75
+sleep 0.2
+3.times do
+  sample :loop_compus, beat_stretch: 10, attack: 0.1, release: 2
+end
+in_thread do
+  5.times do
+    base_notes2
+  end
+  15.times do
+    sample :loop_compus, beat_stretch: 10, attack: 0.1, release: 2
+  end
+end
+sleep 19
+#ending sequence with my uploaded recording
+in_thread do
+  sample "C:/Users/emily.streiff/Downloads/Sonic Pi.wav"
+  sample :ambi_dark_woosh, beat_stretch: 5
+end
+
+
+
